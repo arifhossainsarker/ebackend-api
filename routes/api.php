@@ -32,3 +32,12 @@ Route::group([
     Route::post('me', 'AuthController@me');
 
 });
+
+Route::apiResource('products', 'App\Http\Controllers\ProductController');
+Route::group([
+    'prefix' => 'products',
+    'namespace' => 'App\Http\Controllers'
+
+], function () {
+    Route::apiResource('/{product}/review', 'ReviewController');
+});
