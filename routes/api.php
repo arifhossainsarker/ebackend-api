@@ -34,6 +34,7 @@ Route::group([
 });
 
 Route::apiResource('products', 'App\Http\Controllers\ProductController');
+Route::get('/search', 'App\Http\Controllers\ProductController@product_search');
 Route::group([
     'prefix' => 'products',
     'namespace' => 'App\Http\Controllers'

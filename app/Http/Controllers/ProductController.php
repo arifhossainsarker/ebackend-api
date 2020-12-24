@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\product\ProductCollection;
+use App\Http\Resources\product\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $product = ProductCollection::collection(Product::get());
+
+        return $product;
     }
 
     /**
@@ -46,7 +50,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return new ProductResource($product);
     }
 
     /**
@@ -81,5 +85,18 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    /**
+     * product search
+     */
+    public function product_search(Request $request){
+        $search = $request->get('s');
+        $products = Product::where('name', 'LIKE', '%'.$search.'%')
+                            ->orWhere('detail', 'LIKE', '%'.$search.'%')
+                            ->get();
+                            return response()->json([
+                                'products' => $products
+                            ], 200);
     }
 }
