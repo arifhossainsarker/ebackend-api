@@ -16,9 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = ProductCollection::collection(Product::get());
+        $product = ProductCollection::collection(Product::get());
 
-        return $products;
+        return $product;
     }
 
     /**
